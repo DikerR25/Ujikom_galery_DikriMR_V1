@@ -1,0 +1,180 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wrapper-native {
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+    margin-bottom: 6%;
+}
+
+.container-native {
+    width: auto;
+    columns: 4;
+}
+
+.container-native .box-native {
+    width: 200px;
+    margin-bottom: 10px;
+    break-inside: avoid;
+}
+
+.container-native .box-native img{
+    max-width: 100%;
+    border-radius: 15px;
+}
+
+.body-img-native {
+    position: relative;
+}
+
+.body-img-native img {
+    vertical-align: middle;
+}
+
+.body-img-native:hover img {
+    filter: brightness(50%);
+    transition: filter 0.3s ease;
+}
+
+.creator-native {
+    top: 10%;
+    position: absolute;
+    display: flex;
+    font-weight: 500;
+    color: white;
+    overflow: hidden;
+    justify-content: center;
+    margin-left: 5%;
+    background-color: rgb(28, 46, 211);
+    border-radius: 15px;
+    width: 90%;
+    padding: 1.5%;
+    opacity: 0%;
+    transition: .5s ease;
+    font-size: 14px;
+}
+
+.body-img-native:hover .creator-native {
+    transition: .5s ease;
+    opacity: 100%;
+}
+
+.like-native {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    display: flex;
+    font-weight: 500;
+    color: white;
+    overflow: hidden;
+    opacity: 0%;
+    transition: .5s ease;
+    font-size: 14px;
+}
+
+.body-img-native:hover .like-native {
+    transition: .5s ease;
+    opacity: 100%;
+}
+
+.comment-native {
+    top: 50%;
+    left: 5%;
+    position: absolute;
+    display: flex;
+    font-weight: 500;
+    color: white;
+    overflow: hidden;
+    opacity: 0%;
+    transition: .5s ease;
+    font-size: 14px;
+}
+
+.body-img-native:hover .comment-native {
+    transition: .5s ease;
+    opacity: 100%;
+}
+
+.card-native {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+}
+.card-native img {
+    max-width: 100%; /* Maksimum 50% dari lebar card */
+    max-height: 100%; /* Maksimum 50% dari tinggi card */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card-native-profile {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+    background-color: rgb(34, 31, 31);
+}
+.card-native-profile img {
+    max-width: 100%; /* Maksimum 50% dari lebar card */
+    max-height: 100%; /* Maksimum 50% dari tinggi card */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.body-img-native-profile {
+    position: relative;
+}
+
+.body-img-native-profile {
+    vertical-align: middle;
+}
+
+.body-img-native-profile:hover .card-native-profile {
+    filter: brightness(50%);
+    transition: filter 0.3s ease;
+}
+
+.like-native-profile {
+    top: 40%;
+    left: 50%;
+    position: absolute;
+    display: flex;
+    font-weight: 500;
+    color: white;
+    overflow: hidden;
+    opacity: 0%;
+    transition: .5s ease;
+    font-size: 14px;
+}
+
+.body-img-native-profile:hover .like-native-profile {
+    transition: .5s ease;
+    opacity: 100%;
+}
+
+.comment-native-profile {
+    top: 40%;
+    left: 5%;
+    position: absolute;
+    display: flex;
+    font-weight: 500;
+    color: white;
+    overflow: hidden;
+    opacity: 0%;
+    transition: .5s ease;
+    font-size: 14px;
+}
+
+.body-img-native-profile:hover .comment-native-profile {
+    transition: .5s ease;
+    opacity: 100%;
+}

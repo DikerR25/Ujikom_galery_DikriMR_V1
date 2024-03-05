@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('kontent')
     @include('partials.navbar-bottom')
+    @foreach ($user as $d)
     <a href="{{ route('logout') }}" class="btn bg-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout">
         <i class="fa-solid fa-left-long fs-4 text-danger"></i>
     </a>
@@ -10,8 +11,8 @@
                 <div class="card profile-card bg-black">
                     <img src="https://via.placeholder.com/150" class="rounded-circle container mt-3" style="width:50%" alt="Profile Picture">
                     <div class="card-body text-start">
-                        <h5 class="card-title text-light">DikerR</h5>
-                        <p class="card-text text-light">Joined Sep 6, 2023</p>
+                        <h5 class="card-title text-light">{{ $d->username }}</h5>
+                        <p class="card-text text-light">Joined {{ $d->created_at->format('M j, Y') }}</p>
                         <p class="card-text text-light">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, veritatis.</p>
                     </div>
                     <div class="text-center">
@@ -72,4 +73,5 @@
         </div>
     </div>
 </div>
+@endforeach
 @endsection

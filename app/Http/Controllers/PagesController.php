@@ -13,10 +13,10 @@ class PagesController extends Controller
         ]);
     }
 
-    public function profile(){
-        $user = User::class;
-        return view('pages.profile',[
-            "title" => $user
+    public function profile($username){
+        $user = User::where('username', $username)->get();
+        return view('pages.profile',compact('user'),[
+            "title" => $user->first()->username,
         ]);
     }
 

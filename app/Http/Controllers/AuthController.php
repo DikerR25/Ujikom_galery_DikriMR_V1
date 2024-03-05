@@ -20,11 +20,6 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Jika autentikasi berhasil
-            return redirect()->intended('/');
-        }
-
-        if (Auth::attempt($credentials)) {
             return redirect()->route('homepage')->with('success', "Login akun berhasil");
         } else {
             return redirect()->route('login')->with('error', "Invalid Email or Password");

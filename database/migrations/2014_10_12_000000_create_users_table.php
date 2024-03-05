@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('type')->default('user');
             $table->string('img')->default('user');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

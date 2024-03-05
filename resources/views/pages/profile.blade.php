@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('kontent')
     @include('partials.navbar-bottom')
-    @foreach ($user as $d)
+    @foreach ($user as $u)
     <a href="{{ route('logout') }}" class="btn bg-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout">
         <i class="fa-solid fa-left-long fs-4 text-danger"></i>
     </a>
@@ -9,14 +9,18 @@
         <div class="row justify-content-start">
             <div class="col-md-4">
                 <div class="card profile-card bg-black">
-                    <img src="https://via.placeholder.com/150" class="rounded-circle container mt-3" style="width:50%" alt="Profile Picture">
+                    <img src="{{ Storage::url('public/profile_photos/').$u->img }}" alt="{{ $u->username }}" class="profile-native container mt-3" style="width:50%">
                     <div class="card-body text-start">
-                        <h5 class="card-title text-light">{{ $d->username }}</h5>
-                        <p class="card-text text-light">Joined {{ $d->created_at->format('M j, Y') }}</p>
-                        <p class="card-text text-light">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, veritatis.</p>
+                        <h5 class="card-title text-light">{{ $u->username }}</h5>
+                        <p class="card-text text-light">Joined {{ $u->created_at->format('M j, Y') }}</p>
+                        <p class="card-text text-light">{{ $u->description }}</p>
                     </div>
                     <div class="text-center">
-                        <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-2" style="width: 92%">Edit Profile</a>
+                        @if ($u->id == Auth::user()->id)
+                            <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-2" style="width: 92%">Edit Profile</a>
+                        @else
+                            <a href="" class="btn btn-primary mb-2" style="width: 92%">Tambah Teman</a>
+                        @endif
                     </div>
                     <div class="container text-center">
                         <div class="row">
@@ -58,19 +62,32 @@
 </div>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-dark">
-                <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Edit Profile</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-content">
+                <div class="modal-header bg-dark">
+                    <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Edit Profile</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-dark text-light">
+                    <form action="{{ route('updateP',['id' => Auth::user()->id]) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group mt-2">
+                            <input type="text" class="form-control" name="username" value="{{ Auth::user()->username }}" placeholder="Username">
+                        </div>
+                        <div class="form-group mt-2">
+                            <textarea id="" class="form-control" placeholder="Bio" name="description">{{$u->description}}</textarea>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="img" class="text-light">Change Avatar</label>
+                            <input type="file" class="form-control" name="img">
+                        </div>
+                </div>
+                <div class="modal-footer bg-dark">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
             </div>
-            <div class="modal-body bg-dark text-light">
 
-            </div>
-            <div class="modal-footer bg-dark">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
     </div>
 </div>
 @endforeach

@@ -24,7 +24,7 @@
                 <div class="form-group mt-2">
                     <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password">
                 </div>
-                <button type="submit" class="btn btn-primary mt-2">Register</button>
+                <button type="submit" class="btn btn-primary mt-2 w-100">Register</button>
             </form>
           </div>
         </div>

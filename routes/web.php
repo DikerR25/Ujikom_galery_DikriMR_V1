@@ -3,6 +3,7 @@
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,8 @@ Route::post('/proses-register', [AuthController::class, 'proses_register'])->nam
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
+    Route::post('/update-profile/{id}', [PagesController::class, 'updateP'])->name('updateP');
+
     Route::get('/', [PagesController::class, 'index'])->name('homepage');
     Route::get('/profile/{username}', [PagesController::class, 'profile'])->name('profile');
     Route::get('/img', [PagesController::class, 'viewimg'])->name('viewimg');
@@ -30,7 +33,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/img/1', function () {
         return view('pages.view-img',[
-            "title" => "view"
+            "title" => "view",
         ]);
 
     });

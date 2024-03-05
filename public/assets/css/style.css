@@ -178,3 +178,12 @@
     transition: .5s ease;
     opacity: 100%;
 }
+
+.profile-native {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover; /* Memastikan gambar memenuhi area */
+    object-position: center; /* Memposisikan gambar di tengah */
+  }

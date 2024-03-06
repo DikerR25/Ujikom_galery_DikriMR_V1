@@ -11,7 +11,7 @@
                 <div class="card profile-card bg-black">
                     <img src="{{ Storage::url('public/profile_photos/').$u->img }}" alt="{{ $u->username }}" class="profile-native container mt-3" style="width:50%">
                     <div class="card-body text-start">
-                        <h5 class="card-title text-light">{{ $u->username }}</h5>
+                        <span class="card-title text-light fs-5">{{ $u->username }} @if ($u->type == 'verify') <i class="ms-2 fa-solid fa-circle-check text-primary"></i></span> @endif</span>
                         <p class="card-text text-light">Joined {{ $u->created_at->format('M j, Y') }}</p>
                         <p class="card-text text-light">{{ $u->description }}</p>
                     </div>
@@ -25,10 +25,10 @@
                     <div class="container text-center">
                         <div class="row">
                             <div class="col mt-3 mb-3">
-                                <span class="text-light">100</span><span class="text-light"><p>Likes</p></span>
+                                <span class="text-light">{{ $likeCountP }}</span><span class="text-light"><p>Likes</p></span>
                             </div>
                             <div class="col mt-3 mb-3">
-                                <span class="text-light">100</span><span class="text-light"><p>Posts</p></span>
+                                <span class="text-light">{{ $totla_posts }}</span><span class="text-light"><p>Posts</p></span>
                             </div>
                             <div class="col mt-3 mb-3">
                                 <span class="text-light">100</span><span class="text-light"><p>Friends</p></span>

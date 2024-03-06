@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Posts;
 use App\Models\Bio_user;
+use App\Models\Like;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
@@ -13,10 +14,7 @@ class PagesController extends Controller
 {
     public function index()
     {
-        // Mengambil data post secara acak
         $posts = Posts::inRandomOrder()->get();
-
-        // Mengambil user yang terkait dengan post
         $users = User::inRandomOrder()->get();
 
         return view('pages.index', compact('posts', 'users'))->with("title", "DikerR Gallery");
@@ -25,21 +23,31 @@ class PagesController extends Controller
 
     public function profile($username){
         $user = User::where('username', $username)->get();
-        $posts = Posts::where('user_id', $user->first()->id)->get();
+        $posts = Posts::where('user_id', $user->first()->id)->orderBy('created_at', 'desc')->get();
         $bio = Bio_user::all();
-        return view('pages.profile',compact('user','bio','posts'),[
+        $totla_posts = Posts::where('user_id', $user->first()->id)->count();
+        $likeCountP = Like::where('user_id', $user->first()->id)->count();
+
+        return view('pages.profile',compact('user','bio','posts','totla_posts','likeCountP'),[
             "title" => $user->first()->username,
         ]);
     }
 
-    public function viewimg($username,$id){
-        $posts = Posts::where('id',$id)->get();
+    public function viewimg($username, $id){
+        $posts = Posts::where('id', $id)->get();
         $user = User::where('username', $username)->get();
+        $like = Like::where('post_id', $id)->get();
+        $likeCount = Like::where('post_id', $id)->count();
+        $firstPost = $posts->first();
+        $firstLike = $like->first();
+        $likePostId = $firstLike ? $firstLike->post_id : null;
 
-        return view('pages.view-img', compact('posts','user'),[
+        return view('pages.view-img', compact('posts', 'user', 'likeCount'), [
             "title" => $user->first()->username,
+            "like" => $likePostId,
         ]);
     }
+
 
     public function post(){
         return view('pages.post-page',[
@@ -61,7 +69,6 @@ class PagesController extends Controller
 
     public function updateP(Request $request, $id)
     {
-        // Validasi input
         $request->validate([
             'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:15000',
             'username' => 'required|string|max:255',
@@ -70,18 +77,15 @@ class PagesController extends Controller
 
         $user = User::find($id);
 
-        // Perbarui username
         $user->username = $request->input('username');
         $user->description = $request->input('description');
         $user->save();
 
         if ($request->hasFile('img')) {
-            // Hapus foto profil yang lama jika ada
             if ($user->img) {
                 Storage::delete('public/profile_photos/' . $user->img);
             }
 
-            // Simpan foto profil yang baru
             $newProfilePhoto = $request->file('img');
             $newProfilePhotoPath = $newProfilePhoto->store('public/profile_photos');
             $user->img = basename($newProfilePhotoPath);
@@ -91,5 +95,37 @@ class PagesController extends Controller
         return redirect()->route('homepage')->with('success', 'Profil berhasil diperbaharui.');
     }
 
+    public function update_post(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'caption' => 'nullable|string',
+        ]);
+
+        $post = Posts::find($id);
+
+        if (!$post) {
+            return redirect()->back()->with('error', 'Post tidak ditemukan.');
+        }
+
+        $post->title = $request->input('title');
+        $post->caption = $request->input('caption');
+        $post->save();
+
+        return redirect()->route('homepage')->with('success', 'Proses berhasil.');
+    }
+
+    public function delete_post($id)
+    {
+        $posts = Posts::findOrFail($id);
+        Storage::disk('local')->delete('public/posts/'.$posts->image);
+        $posts->delete();
+
+        if($posts){
+            return redirect()->route('homepage')->with(['success' => 'Data Berhasil Dihapus!']);
+        }else{
+            return redirect()->route('homepage')->with(['error' => 'Data Gagal Dihapus!']);
+        }
+    }
 
 }

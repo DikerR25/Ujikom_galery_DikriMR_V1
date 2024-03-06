@@ -24,5 +24,6 @@
     </script>
     @stack('img')
     @stack('scriptpost')
+    @stack('like')
 </body>
 </html>

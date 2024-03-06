@@ -24,6 +24,9 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::post('/update-profile/{id}', [PagesController::class, 'updateP'])->name('updateP');
     Route::post('/posts', [PostsController::class, 'posts'])->name('postsF');
+    Route::post('/update-post/{id}', [PagesController::class, 'update_post'])->name('update_post');
+    Route::post('/like', [PostsController::class,'toggleLike']);
+    Route::get('/delete-post/{id}', [PagesController::class, 'delete_post'])->name('delete_post');
 
     Route::get('/', [PagesController::class, 'index'])->name('homepage');
     Route::get('/profile/{username}', [PagesController::class, 'profile'])->name('profile');

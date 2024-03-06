@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\PostsController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +23,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::post('/update-profile/{id}', [PagesController::class, 'updateP'])->name('updateP');
+    Route::post('/posts', [PostsController::class, 'posts'])->name('postsF');
 
     Route::get('/', [PagesController::class, 'index'])->name('homepage');
     Route::get('/profile/{username}', [PagesController::class, 'profile'])->name('profile');
@@ -30,12 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/post', [PagesController::class, 'post'])->name('post');
     Route::get('/explore', [PagesController::class, 'explore'])->name('explore');
     Route::get('/relationship', [PagesController::class, 'relationship'])->name('relationship');
+    Route::get('/{username}/{id}', [PagesController::class, 'viewimg'])->name('viewimg');
 
-    Route::get('/img/1', function () {
-        return view('pages.view-img',[
-            "title" => "view",
-        ]);
-
-    });
 });
 

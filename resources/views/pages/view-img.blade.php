@@ -1,21 +1,27 @@
 @extends('layouts.main')
 @section('kontent')
     @include('partials.navbar-bottom')
+    @foreach ($user as $u)
+    @foreach ($posts as $p)
     <div class="container">
         <button class="btn bg-dark" onclick="history.back()"><i class="fa-solid fa-left-long fs-4 text-light"></i></button>
         <div class="card card-flush bg-black mx-auto w-50 mb-5">
             <div class="card bg-black mx-auto w-100">
                 <div class="card-body">
                     <div class="col">
-                        <img class="rounded-circle" style="width: 10%" src="https://i.pinimg.com/236x/b2/af/01/b2af01d1fdfd349f949ec3308fc4270c.jpg" alt="">
-                        <span class="ms-2 text-light">Dikri Mahali Ramdani <i class="ms-1 fa-solid fa-circle-check text-primary"></i></span>
-                        <span class="badge text-bg-primary p-2 mt-2 float-end">Profile</span>
+                        <img class="profile-native-view" src="{{ Storage::url('public/profile_photos/').$u->img }}" alt="{{ $u->username }}">
+                        <span class="ms-2 text-light">{{ $title }} @if ($u->type == 'verify') <i class="ms-2 fa-solid fa-circle-check text-primary"></i></span> @endif
+                        @if (Auth::user()->id == $u->id)
+                            <span class="badge text-bg-primary p-2 mt-2 float-end">Edit</span>
+                        @else
+                            <span class="badge text-bg-primary p-2 mt-2 float-end">Profile</span>
+                        @endif
                     </div>
                 </div>
             </div>
             <div class="card bg-black mx-auto w-100">
                 <div class="card-native">
-                    <img src="https://i.pinimg.com/originals/1f/0a/05/1f0a057ce9515f863270ead035f28140.jpg" alt="">
+                    <img src="{{ Storage::url('public/posts/').$p->image }}" alt="{{ $p->title }}">
                 </div>
             </div>
                 <div class="container text-center">
@@ -34,9 +40,9 @@
                 <div class="separator border-top border-white"></div>
                 <div class="card-body ">
                     <div class="row">
-                        <span class="ms-2 text-light fw-bold">Bocchi</span>
-                        <span class="ms-2 text-light">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque, neque.</span>
-                        <span class="ms-2 fw-lighter fsx-1 small text-light">2024 10</span>
+                        <span class="ms-2 text-light fw-bold">{{ $p->title }}</span>
+                        <span class="ms-2 text-light">{{ $p->caption }}</span>
+                        <span class="ms-2 fw-lighter fsx-1 small text-light">{{ $p->created_at->format('M j, Y') }}</span>
                     </div>
                 </div>
         </div>
@@ -56,7 +62,8 @@
             </div>
         </div>
     </div>
-
+    @endforeach
+    @endforeach
 @endsection
 @push('img')
 <script>

@@ -40,19 +40,25 @@
             <div class="col-md-8">
                 <div class="card profile-card bg-black">
                     <div class="container text-center">
-                        <div class="row row-cols-3">
-                            @for ($i = 0; $i < 15; $i++)
+                        @if ($posts->isEmpty())
+                                <span class="badge text-bg-primary text-light mt-4 mb-4 w-50 p-3 fs-5">Tidak ada postingan</span>
+                            @else
+                            <div class="row row-cols-3">
+                                @foreach ($posts as $p)
                                 <div class="col">
-                                    <div class="body-img-native-profile">
-                                        <div class="card-native-profile mt-3 mb-2">
-                                            <img src="https://i.pinimg.com/236x/ee/c9/28/eec9283201e20a8b046b42792472a02e.jpg" alt="">
+                                    <a href="{{ route('viewimg',['username' => $u->username, 'id' => $p->id]) }}">
+                                        <div class="body-img-native-profile">
+                                            <div class="card-native-profile mt-3 mb-2">
+                                                <img src="{{ Storage::url('public/posts/').$p->image }}" alt="{{ $p->title }}">
+                                            </div>
+                                            <span class="comment-native-profile text-center row"><i class="fa-solid fa-comment fs-1"></i><span>100</span></span>
+                                            <span class="like-native-profile text-center row"><i class="fa-solid fa-heart fs-1"></i><span>100</span></span>
                                         </div>
-                                        <span class="comment-native-profile text-center row"><i class="fa-solid fa-comment fs-1"></i><span>100</span></span>
-                                        <span class="like-native-profile text-center row"><i class="fa-solid fa-heart fs-1"></i><span>100</span></span>
-                                    </div>
+                                    </a>
                                 </div>
-                            @endfor
-                        </div>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

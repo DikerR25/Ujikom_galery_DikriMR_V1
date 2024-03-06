@@ -4,30 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Posts;
 use App\Models\Bio_user;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
 class PagesController extends Controller
 {
-    public function index(){
-        return view('pages.index',[
-            "title" => "Index"
-        ]);
+    public function index()
+    {
+        // Mengambil data post secara acak
+        $posts = Posts::inRandomOrder()->get();
+
+        // Mengambil user yang terkait dengan post
+        $users = User::inRandomOrder()->get();
+
+        return view('pages.index', compact('posts', 'users'))->with("title", "DikerR Gallery");
     }
+
 
     public function profile($username){
         $user = User::where('username', $username)->get();
+        $posts = Posts::where('user_id', $user->first()->id)->get();
         $bio = Bio_user::all();
-        return view('pages.profile',compact('user','bio'),[
+        return view('pages.profile',compact('user','bio','posts'),[
             "title" => $user->first()->username,
         ]);
     }
 
-    public function viewimg(){
+    public function viewimg($username,$id){
+        $posts = Posts::where('id',$id)->get();
+        $user = User::where('username', $username)->get();
 
-        return view('pages.view-img',[
-            "title" => "view"
+        return view('pages.view-img', compact('posts','user'),[
+            "title" => $user->first()->username,
         ]);
     }
 
@@ -77,12 +87,6 @@ class PagesController extends Controller
             $user->img = basename($newProfilePhotoPath);
             $user->save();
         }
-
-        // Mencari atau membuat record Bio_User
-        // $bioUser = User::updateOrCreate(
-        //     ['id' => $user->id],
-        //     ['description' => $request->input('description')]
-        // );
 
         return redirect()->route('homepage')->with('success', 'Profil berhasil diperbaharui.');
     }

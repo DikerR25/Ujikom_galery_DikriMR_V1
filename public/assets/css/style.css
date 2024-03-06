@@ -186,4 +186,13 @@
     border-radius: 50%;
     object-fit: cover; /* Memastikan gambar memenuhi area */
     object-position: center; /* Memposisikan gambar di tengah */
-  }
+}
+
+.profile-native-view {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover; /* Memastikan gambar memenuhi area */
+    object-position: center; /* Memposisikan gambar di tengah */
+}

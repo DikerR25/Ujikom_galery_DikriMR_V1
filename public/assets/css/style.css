@@ -106,8 +106,8 @@
     position: relative;
 }
 .card-native img {
-    max-width: 100%; /* Maksimum 50% dari lebar card */
-    max-height: 100%; /* Maksimum 50% dari tinggi card */
+    max-width: 100%;
+    max-height: 100%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -122,8 +122,8 @@
     background-color: rgb(34, 31, 31);
 }
 .card-native-profile img {
-    max-width: 100%; /* Maksimum 50% dari lebar card */
-    max-height: 100%; /* Maksimum 50% dari tinggi card */
+    max-width: 100%; 
+    max-height: 100%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -145,7 +145,7 @@
 
 .like-native-profile {
     top: 40%;
-    left: 50%;
+    left: 55%;
     position: absolute;
     display: flex;
     font-weight: 500;
@@ -163,7 +163,7 @@
 
 .comment-native-profile {
     top: 40%;
-    left: 5%;
+    left: 13%;
     position: absolute;
     display: flex;
     font-weight: 500;
@@ -184,8 +184,8 @@
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    object-fit: cover; /* Memastikan gambar memenuhi area */
-    object-position: center; /* Memposisikan gambar di tengah */
+    object-fit: cover; 
+    object-position: center; 
 }
 
 .profile-native-view {
@@ -193,6 +193,10 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    object-fit: cover; /* Memastikan gambar memenuhi area */
-    object-position: center; /* Memposisikan gambar di tengah */
+    object-fit: cover; 
+    object-position: center; 
 }
+
+.card-shadow-native {
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2);
+  }

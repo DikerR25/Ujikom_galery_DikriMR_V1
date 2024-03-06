@@ -25,7 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/update-profile/{id}', [PagesController::class, 'updateP'])->name('updateP');
     Route::post('/posts', [PostsController::class, 'posts'])->name('postsF');
     Route::post('/update-post/{id}', [PagesController::class, 'update_post'])->name('update_post');
-    Route::post('/like', [PostsController::class,'toggleLike']);
+    Route::post('/komen/{postId}', [PostsController::class, 'komen'])->name('komen');
+    
+    Route::get('/like/{postId}', [PostsController::class, 'likePost'])->name('like');
+    Route::get('/unlike/{postId}', [PostsController::class, 'unlikePost'])->name('unlike');
     Route::get('/delete-post/{id}', [PagesController::class, 'delete_post'])->name('delete_post');
 
     Route::get('/', [PagesController::class, 'index'])->name('homepage');

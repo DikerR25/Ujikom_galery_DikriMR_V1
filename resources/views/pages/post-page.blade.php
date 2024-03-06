@@ -47,7 +47,7 @@
         tagify = new Tagify(input, {
         enforceWhitelist : true,
         delimiters       : null,
-        whitelist        : [ "Alam", "Pemandangan" ,"Teknologi", "Komputer" ,"Olahraga", "Sepak Bola", "Mode", "Busana", "Makanan", "Makanan Laut", "Kesehatan", "Fitness", "Transportasi", "Mobil", "Pendidikan", "Buku", "Seni", "Lukisan", "Hiburan", "Film", "Anime", "Motor", "Meme", "Stiker", "Tank", "Sepedah", "Handphone", "Setup", "Waifu", "Husbu", "Hewan", "Peliharaan", "Kota", "Desa", "Wallpaper", "Gunung", "Pantai", "Laut", "V-Tuber", "Manga", "Komik", "Manhua", "Manhwa"],
+        whitelist        : [ "Alam", "Streamer", "permainan", "Game","Pemandangan" ,"Teknologi", "Komputer" ,"Olahraga", "Sepak Bola", "Busana", "Makanan", "Makanan Laut", "Kesehatan", "Fitness", "Transportasi", "Mobil", "Pendidikan", "Buku", "Seni", "Lukisan", "Hiburan", "Film", "Anime", "Motor", "Meme", "Stiker", "Tank", "Sepedah", "Handphone", "Setup", "Waifu", "Husbu", "Hewan", "Peliharaan", "Kota", "Desa", "Wallpaper", "Gunung", "Pantai", "Laut", "V-Tuber", "Manga", "Komik", "Manhua", "Manhwa"],
         callbacks        : {
             add    : console.log,
             remove : console.log

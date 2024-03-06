@@ -7,8 +7,11 @@ use App\Models\User;
 use App\Models\Posts;
 use App\Models\Bio_user;
 use App\Models\Like;
+use App\Models\Comment;
+use App\Models\Relationship;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {
@@ -24,27 +27,32 @@ class PagesController extends Controller
     public function profile($username){
         $user = User::where('username', $username)->get();
         $posts = Posts::where('user_id', $user->first()->id)->orderBy('created_at', 'desc')->get();
+        $totalLikes = Like::whereIn('post_id', $posts->pluck('id'))->count();
         $bio = Bio_user::all();
-        $totla_posts = Posts::where('user_id', $user->first()->id)->count();
-        $likeCountP = Like::where('user_id', $user->first()->id)->count();
-
-        return view('pages.profile',compact('user','bio','posts','totla_posts','likeCountP'),[
+        $totalPosts = Posts::where('user_id', $user->first()->id)->count();
+        $relationship = Relationship::where('user_id1', $user->first()->id)->count();
+       
+        return view('pages.profile',compact('user','bio','posts','totalPosts','totalLikes','relationship'),[
             "title" => $user->first()->username,
         ]);
     }
+    
 
     public function viewimg($username, $id){
         $posts = Posts::where('id', $id)->get();
+        $users = User::all();
         $user = User::where('username', $username)->get();
-        $like = Like::where('post_id', $id)->get();
-        $likeCount = Like::where('post_id', $id)->count();
-        $firstPost = $posts->first();
-        $firstLike = $like->first();
-        $likePostId = $firstLike ? $firstLike->post_id : null;
+        $liked = Like::where('user_id', auth()->id())
+                     ->where('post_id', $id)
+                     ->exists();
 
-        return view('pages.view-img', compact('posts', 'user', 'likeCount'), [
+        $likeCount = Like::where('post_id', $id)->count();
+        $commentCount = Comment::where('post_id', $id)->count();
+        $comment = Comment::where('post_id', $id)->get();
+
+
+        return view('pages.view-img', compact('posts', 'user', 'likeCount', 'users','liked','comment','commentCount'), [
             "title" => $user->first()->username,
-            "like" => $likePostId,
         ]);
     }
 

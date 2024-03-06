@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Relationship extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'post_id',
+    ];
 }

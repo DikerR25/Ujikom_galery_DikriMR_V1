@@ -5,11 +5,15 @@
     @foreach ($posts as $p)
     <div class="container">
         <button class="btn bg-dark" onclick="history.back()"><i class="fa-solid fa-left-long fs-4 text-light"></i></button>
-        <div class="card card-flush bg-black mx-auto w-50 mb-5">
+        <div class="card card-flush bg-black mx-auto w-50 mb-5 card-shadow-native">
             <div class="card bg-black mx-auto w-100">
                 <div class="card-body">
                     <div class="col">
-                        <img class="profile-native-view" src="{{ Storage::url('public/profile_photos/').$u->img }}" alt="{{ $u->username }}">
+                        @if ($u->img == 'user')
+                            <img src="/assets/img/avatar.png" alt="{{ $u->username }}" class="profile-native-view">
+                        @else
+                            <img class="profile-native-view" src="{{ Storage::url('public/profile_photos/').$u->img }}" alt="{{ $u->username }}">
+                        @endif
                         <span class="ms-2 text-light">{{ $title }} @if ($u->type == 'verify') <i class="ms-2 fa-solid fa-circle-check text-primary"></i></span> @endif
                         @if (Auth::user()->id == $u->id)
                             <span class="btn btn-primary p-1 px-3 mt-2 float-end" data-bs-toggle="modal" data-bs-target="#edit{{ $p->id }}">Edit</span>
@@ -27,17 +31,15 @@
                 <div class="container text-center">
                     <div class="row">
                         <div class="col mt-3 mb-3">
-                            <i id="likeButton" onclick="toggleLike({{ $p->id }}, {{ $u->id }})" class="fa-solid fa-heart fs-2
-
-                                    @if($p->id == $like)
-                                        text-danger
-                                    @else
-                                        text-light
-                                    @endif">
-                            </i><span class="text-light"> {{ $likeCount }}</span>
+                            @if ($liked)
+                                    <a href="{{route('unlike',['postId' => $p->id])}}" class="fa-solid fa-heart fs-2 text-danger" style="text-decoration: none"></a>
+                            @else
+                                    <a href="{{route('like',['postId' => $p->id])}}" class="fa-solid fa-heart fs-2 text-light" style="text-decoration: none"></a>
+                            @endif
+                            <span class="text-light"> {{ $likeCount }}</span>
                         </div>
                         <div class="col mt-3 mb-3">
-                            <i data-bs-toggle="modal" data-bs-target="#Comment" class="fa-solid fa-comment fs-2 text-light"></i><span class="text-light"> 25</span>
+                            <i data-bs-toggle="modal" data-bs-target="#Comment" class="fa-solid fa-comment fs-2 text-light"></i><span class="text-light"> {{$commentCount}}</span>
                         </div>
                         <div class="col mt-3 mb-3" onclick="copyUrlToClipboard()">
                             <i class="fa-solid fa-share fs-2 text-light"></i><span class="text-light"> Share</span>
@@ -63,7 +65,24 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body bg-dark">
-                ...
+                    {{Auth::user()->id}}
+                    @foreach ($comment as $c)
+                    @foreach ($users as $u)
+                        @if ($c->user_id == $u->id)
+                        <div class="row justify-content-start">
+                            <div class="badge text-bg-secondary w-100 text-start text-light mb-2">
+                                <span class="fs-4"><img src="/assets/img/avatar.png" style="width: 5%; border-radius:50%" alt=""> {{$u->username}}</span>
+                                <p class="fs-5">{{$c->comment}}</p>
+                            </div>
+                        </div>
+                        @endif
+                    @endforeach
+                    @endforeach
+                    <form action="{{ route('komen',['postId' => $p->id]) }}" method="POST">
+                        @csrf
+                        <textarea name="comment" class="form-control" placeholder="Enter your comment"></textarea>
+                        <button class="btn btn-primary mt-2 w-100" type="submit">Submit</button>
+                    </form>
                 </div>
 
             </div>

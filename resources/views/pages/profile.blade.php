@@ -8,10 +8,14 @@
     <div class="container mt-1 mb-5">
         <div class="row justify-content-start">
             <div class="col-md-4">
-                <div class="card profile-card bg-black">
-                    <img src="{{ Storage::url('public/profile_photos/').$u->img }}" alt="{{ $u->username }}" class="profile-native container mt-3" style="width:50%">
+                <div class="card profile-card bg-black card-shadow-native">
+                    @if ($u->img == 'user')
+                        <img src="/assets/img/avatar.png" alt="{{ $u->username }}" class="profile-native container mt-3" style="width:50%">
+                    @else
+                        <img src="{{ Storage::url('public/profile_photos/').$u->img }}" alt="{{ $u->username }}" class="profile-native container mt-3" style="width:50%">
+                    @endif
                     <div class="card-body text-start">
-                        <span class="card-title text-light fs-5">{{ $u->username }} @if ($u->type == 'verify') <i class="ms-2 fa-solid fa-circle-check text-primary"></i></span> @endif</span>
+                        <span class="card-title text-light fs-5">{{ $u->username }} @if ($u->type == 'verify') <i class="ms-1 fa-solid fa-circle-check text-primary"></i></span> @endif</span>
                         <p class="card-text text-light">Joined {{ $u->created_at->format('M j, Y') }}</p>
                         <p class="card-text text-light">{{ $u->description }}</p>
                     </div>
@@ -25,20 +29,20 @@
                     <div class="container text-center">
                         <div class="row">
                             <div class="col mt-3 mb-3">
-                                <span class="text-light">{{ $likeCountP }}</span><span class="text-light"><p>Likes</p></span>
+                                <span class="text-light">{{ $totalLikes }}</span><span class="text-light"><p>Likes</p></span>
                             </div>
                             <div class="col mt-3 mb-3">
-                                <span class="text-light">{{ $totla_posts }}</span><span class="text-light"><p>Posts</p></span>
+                                <span class="text-light">{{ $totalPosts }}</span><span class="text-light"><p>Posts</p></span>
                             </div>
                             <div class="col mt-3 mb-3">
-                                <span class="text-light">100</span><span class="text-light"><p>Friends</p></span>
+                                <span class="text-light">{{ $relationship }}</span><span class="text-light"><p>Friends</p></span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-8">
-                <div class="card profile-card bg-black">
+                <div class="card profile-card bg-black card-shadow-native">
                     <div class="container text-center">
                         @if ($posts->isEmpty())
                                 <span class="badge text-bg-primary text-light mt-4 mb-4 w-50 p-3 fs-5">Tidak ada postingan</span>
@@ -51,8 +55,8 @@
                                             <div class="card-native-profile mt-3 mb-2">
                                                 <img src="{{ Storage::url('public/posts/').$p->image }}" alt="{{ $p->title }}">
                                             </div>
-                                            <span class="comment-native-profile text-center row"><i class="fa-solid fa-comment fs-1"></i><span>100</span></span>
-                                            <span class="like-native-profile text-center row"><i class="fa-solid fa-heart fs-1"></i><span>100</span></span>
+                                            <span class="comment-native-profile text-center row"><i class="fa-solid fa-comment fs-1"></i><span>{{$p->comment}}</span></span>
+                                            <span class="like-native-profile text-center row"><i class="fa-solid fa-heart fs-1"></i><span>{{$p->like}}</span></span>
                                         </div>
                                     </a>
                                 </div>
@@ -92,8 +96,7 @@
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
-            </div>
-
+        </div>
     </div>
 </div>
 @endforeach

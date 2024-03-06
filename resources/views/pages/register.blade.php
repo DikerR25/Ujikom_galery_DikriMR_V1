@@ -2,10 +2,10 @@
 
 @section('kontent')
   <div class="container">
-    <div class="card mx-auto w-50 mt-5 bg-black">
+    <div class="card mx-auto w-50 mt-5 bg-black card-shadow-native">
         <h2 class="card-title text-center mt-4 text-light">Galery Foto</h2>
       <div class="card-body">
-        <div class="card mx-auto w-100 bg-dark">
+        <div class="card mx-auto w-100 bg-dark card-shadow-native">
           <div class="card-body">
             <form action="/proses-register" method="POST">
                 @csrf
@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div class="card mx-auto w-50 mt-4 bg-black">
+    <div class="card mx-auto w-50 mt-4 bg-black card-shadow-native">
         <div class="card-body">
             <h6 class="text-center mt-2 text-light">Sudah Punya akun?, <a href="/login"><b>Masuk!</b></a></h6>
         </div>

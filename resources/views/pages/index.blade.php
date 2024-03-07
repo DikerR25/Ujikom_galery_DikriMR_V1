@@ -22,13 +22,4 @@
             @endforeach
         </div>
     </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <img src="https://i.pinimg.com/236x/22/c0/91/22c091b46f50a29446b38ff284bc6e0c.jpg" alt="">
-                </div>
-            </div>
-            </div>
-        </div>
 @endsection

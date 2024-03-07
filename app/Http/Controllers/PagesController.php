@@ -8,6 +8,7 @@ use App\Models\Posts;
 use App\Models\Bio_user;
 use App\Models\Like;
 use App\Models\Comment;
+use App\Models\category;
 use App\Models\Relationship;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -20,9 +21,8 @@ class PagesController extends Controller
         $posts = Posts::inRandomOrder()->get();
         $users = User::inRandomOrder()->get();
 
-        return view('pages.index', compact('posts', 'users'))->with("title", "DikerR Gallery");
+        return view('pages.index', compact('posts', 'users'))->with("title", "Beranda");
     }
-
 
     public function profile($username){
         $user = User::where('username', $username)->get();
@@ -36,7 +36,6 @@ class PagesController extends Controller
             "title" => $user->first()->username,
         ]);
     }
-
 
     public function viewimg($username, $id){
         $posts = Posts::where('id', $id)->get();
@@ -56,28 +55,29 @@ class PagesController extends Controller
         ]);
     }
 
-
     public function post(){
         return view('pages.post-page',[
-            "title" => "post"
+            "title" => "Post"
         ]);
     }
 
     public function explore(){
-        return view('pages.explore',[
-            "title" => "exprole"
+        $users = User::all();
+        $category = Category::orderBy('category', 'ASC')->get();
+        return view('pages.explore', compact('users','category'),[
+            "title" => "Exprole"
         ]);
     }
 
-    public function allusers(Request $request)
+    public function explorecategory($category)
     {
-        $query = $request->get('query');
-        $results = User::where('username', 'LIKE', "%{$query}%")->get();
-        return view('pages.explore', compact('results'),[
-            "title" => "exprole"
+        $posts = Posts::inRandomOrder()->where('category', 'LIKE', "%$category%")->get();
+        $users = User::inRandomOrder()->get();
+
+        return view('pages.explore-category', compact('posts', 'users'),[
+            "title" => $category
         ]);
     }
-
 
     public function relationship(){
         return view('pages.relationship',[

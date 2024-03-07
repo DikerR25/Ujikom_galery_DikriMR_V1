@@ -9,7 +9,8 @@
 
 
     @foreach($relationship as $request)
-        @if ($request == 'pending')
+        @if ($request->status == 'pending')
+        @if ($request->user_id2 == Auth::user()->id)
             <p>{{ $request->user1->name }} ingin berteman dengan Anda.</p>
             <form action="{{ route('friendship.accept', $request->id) }}" method="POST">
                 @csrf
@@ -17,8 +18,8 @@
                 <button type="submit">Terima Pertemanan</button>
             </form>
         @endif
+        @endif
     @endforeach
-
 
     @foreach ($relationship as $r)
     @foreach ($user as $u)

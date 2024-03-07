@@ -31,8 +31,9 @@ class PagesController extends Controller
         $bio = Bio_user::all();
         $totalPosts = Posts::where('user_id', $user->first()->id)->count();
         $relationship = Relationship::where('user_id1', $user->first()->id)->count();
+        $relationship1 = Relationship::where('user_id1', $user->first()->id)->get();
 
-        return view('pages.profile',compact('user','bio','posts','totalPosts','totalLikes','relationship'),[
+        return view('pages.profile',compact('user','bio','posts','totalPosts','totalLikes','relationship', 'relationship1'),[
             "title" => $user->first()->username,
         ]);
     }
@@ -80,7 +81,10 @@ class PagesController extends Controller
     }
 
     public function relationship(){
-        return view('pages.relationship',[
+        $relationship = Relationship::all();
+        $user = User::all();
+
+        return view('pages.relationship', compact('relationship', 'user'),[
             "title" => "Relationship"
         ]);
     }

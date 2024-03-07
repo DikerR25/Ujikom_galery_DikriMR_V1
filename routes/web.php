@@ -41,5 +41,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/relationship', [PagesController::class, 'relationship'])->name('relationship');
     Route::get('/{username}/{id}', [PagesController::class, 'viewimg'])->name('viewimg');
 
+    Route::get('/friendship/store/{user_id}', [PostsController::class, 'store'])->name('friendship.store');
+
+    Route::patch('/friendship/{id}/accept', [PostsController::class, 'accept'])->name('friendship.accept');
+
+    Route::patch('/friendship/{id}/reject', [PostsController::class, 'reject'])->name('friendship.reject');
+
 });
 

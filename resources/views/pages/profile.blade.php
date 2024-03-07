@@ -2,9 +2,14 @@
 @section('kontent')
     @include('partials.navbar-bottom')
     @foreach ($user as $u)
+    @foreach ($relationship1 as $r)
+    @if ($u->id == Auth::user()->id)
     <a href="{{ route('logout') }}" class="btn bg-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout">
         <i class="fa-solid fa-left-long fs-4 text-danger"></i>
     </a>
+    @else
+    <div class="mb-4"></div>
+    @endif
     <div class="container mt-1 mb-5">
         <div class="row justify-content-start">
             <div class="col-md-4">
@@ -22,8 +27,10 @@
                     <div class="text-center">
                         @if ($u->id == Auth::user()->id)
                             <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-2" style="width: 92%">Edit Profile</a>
+                        @elseif ($r->status == 'accepted')
+                        <a  class="btn btn-primary mb-2" style="width: 92%">Sudah Berteman!</a>
                         @else
-                            <a href="" class="btn btn-primary mb-2" style="width: 92%">Tambah Teman</a>
+                            <a href="{{ route('friendship.store',['user_id' => $u->id]) }}" class="btn btn-primary mb-2" style="width: 92%">Tambah Teman</a>
                         @endif
                     </div>
                     <div class="container text-center">
@@ -99,5 +106,6 @@
         </div>
     </div>
 </div>
+@endforeach
 @endforeach
 @endsection

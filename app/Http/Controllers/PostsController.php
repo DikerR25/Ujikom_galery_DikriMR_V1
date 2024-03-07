@@ -113,4 +113,31 @@ class PostsController extends Controller
         return back();
     }
 
+    public function store(Request $request, $user_id)
+    {
+        Relationship::create([
+            'user_id1' => auth()->id(),
+            'user_id2' => $user_id,
+            'status' => 'pending',
+        ]);
+
+        return redirect()->back()->with('status', 'Permintaan pertemanan berhasil dikirim.');
+    }
+
+    public function accept($id)
+    {
+        $friendship = Relationship::findOrFail($id);
+        $friendship->update(['status' => 'accepted']);
+
+        return redirect()->back()->with('status', 'Permintaan pertemanan diterima.');
+    }
+
+    public function reject($id)
+    {
+        $friendship = Relationship::findOrFail($id);
+        $friendship->update(['status' => 'rejected']);
+
+        return redirect()->back()->with('status', 'Permintaan pertemanan ditolak.');
+    }
+
 }

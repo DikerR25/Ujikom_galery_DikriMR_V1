@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('kontent')
     @include('partials.navbar-bottom')
-    <nav class="navbar">
+    <nav class="navbar mt-2 mb-2">
         <div class="container-fluid justify-content-center">
             <div id="app">
                 <form action="/profile/" id="searchForm" class="d-flex" role="search">

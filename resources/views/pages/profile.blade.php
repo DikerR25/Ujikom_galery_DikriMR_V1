@@ -55,7 +55,7 @@
                                             <div class="card-native-profile mt-3 mb-2">
                                                 <img src="{{ Storage::url('public/posts/').$p->image }}" alt="{{ $p->title }}">
                                             </div>
-                                            <span class="comment-native-profile text-center row"><i class="fa-solid fa-comment fs-1"></i><span>{{$p->comment}}</span></span>
+                                            <span class="comment-native-profile text-center row"><i class="fa-solid fa-comment fs-1"></i><span>{{$p->commnet}}</span></span>
                                             <span class="like-native-profile text-center row"><i class="fa-solid fa-heart fs-1"></i><span>{{$p->like}}</span></span>
                                         </div>
                                     </a>

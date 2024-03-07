@@ -15,7 +15,7 @@
                             </div>
                         @endif
                         <div class="form-group flex-nowrap mb-2">
-                            <input type="text" class="form-control" name="email" placeholder="Email" aria-describedby="addon-wrapping" required>
+                            <input type="email" class="form-control" name="email" placeholder="Email" aria-describedby="addon-wrapping" required>
                         </div>
                         <div class="form-group flex-nowrap mb-2">
                             <input type="password" class="form-control" name="password" id="password" placeholder="Password" aria-describedby="addon-wrapping" required>

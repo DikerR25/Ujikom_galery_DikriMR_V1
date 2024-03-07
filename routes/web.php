@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts', [PostsController::class, 'posts'])->name('postsF');
     Route::post('/update-post/{id}', [PagesController::class, 'update_post'])->name('update_post');
     Route::post('/komen/{postId}', [PostsController::class, 'komen'])->name('komen');
-    
+
     Route::get('/like/{postId}', [PostsController::class, 'likePost'])->name('like');
     Route::get('/unlike/{postId}', [PostsController::class, 'unlikePost'])->name('unlike');
     Route::get('/delete-post/{id}', [PagesController::class, 'delete_post'])->name('delete_post');
@@ -36,6 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/img', [PagesController::class, 'viewimg'])->name('viewimg');
     Route::get('/post', [PagesController::class, 'post'])->name('post');
     Route::get('/explore', [PagesController::class, 'explore'])->name('explore');
+    Route::get('/explore/user/{username}', [PagesController::class, 'exploreuser'])->name('exploreuser');
+    Route::get('/allusers', [PagesController::class, 'allusers'])->name('allusers');
+
+
     Route::get('/relationship', [PagesController::class, 'relationship'])->name('relationship');
     Route::get('/{username}/{id}', [PagesController::class, 'viewimg'])->name('viewimg');
 

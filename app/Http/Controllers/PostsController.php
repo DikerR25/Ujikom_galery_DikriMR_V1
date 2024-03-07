@@ -48,13 +48,13 @@ class PostsController extends Controller
             'user_id' => auth()->id(),
             'post_id' => $postId,
         ]);
-    
+
         $likeCount = Like::where('post_id', $postId)->count();
-    
+
         Posts::where('id', $postId)->update([
             'like' => $likeCount,
         ]);
-    
+
         return back();
     }
 
@@ -63,13 +63,13 @@ class PostsController extends Controller
         Like::where('user_id', auth()->id())
             ->where('post_id', $postId)
             ->delete();
-    
+
         $likeCount = Like::where('post_id', $postId)->count();
-    
+
         Posts::where('id', $postId)->update([
             'like' => $likeCount,
         ]);
-    
+
         return back();
     }
 
@@ -79,7 +79,7 @@ class PostsController extends Controller
             'user_id1' => auth()->id(),
             'user_id2' => $id,
         ]);
-    
+
         return back();
     }
 
@@ -88,7 +88,7 @@ class PostsController extends Controller
         Relationship::where('user_id1' , auth()->id())
             ->where('user_id2' , $id,)
             ->delete();
-    
+
         return back();
     }
 
@@ -105,12 +105,12 @@ class PostsController extends Controller
         ]);
 
         $commentCount = Comment::where('post_id', $postId)->count();
-    
+
         Posts::where('id', $postId)->update([
             'comment' => $commentCount,
         ]);
-    
+
         return back();
     }
-    
+
 }

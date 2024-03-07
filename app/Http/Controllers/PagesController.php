@@ -31,12 +31,12 @@ class PagesController extends Controller
         $bio = Bio_user::all();
         $totalPosts = Posts::where('user_id', $user->first()->id)->count();
         $relationship = Relationship::where('user_id1', $user->first()->id)->count();
-       
+
         return view('pages.profile',compact('user','bio','posts','totalPosts','totalLikes','relationship'),[
             "title" => $user->first()->username,
         ]);
     }
-    
+
 
     public function viewimg($username, $id){
         $posts = Posts::where('id', $id)->get();
@@ -68,6 +68,16 @@ class PagesController extends Controller
             "title" => "exprole"
         ]);
     }
+
+    public function allusers(Request $request)
+    {
+        $query = $request->get('query');
+        $results = User::where('username', 'LIKE', "%{$query}%")->get();
+        return view('pages.explore', compact('results'),[
+            "title" => "exprole"
+        ]);
+    }
+
 
     public function relationship(){
         return view('pages.relationship',[

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('caption');
             $table->string('category');
-            $table->integer('like')->nullabel();
-            $table->integer('commnet')->nullabel();
+            $table->integer('like')->default('0');
+            $table->integer('commnet')->default('0');
             $table->timestamps();
         });
     }
